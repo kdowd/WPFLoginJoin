@@ -53,9 +53,7 @@ namespace WPFLoginJoin.Views.Components
 
             if (!String.IsNullOrEmpty(userPass) && !String.IsNullOrEmpty(userName))
             {
-                bool test = theCollectionAsList.Any(
-                   (item) => { return item.Password.Equals(userPass) && item.Username.Equals(userName); }
-                   );
+                bool test = theCollectionAsList.Any(item => item.Password.Equals(userPass) && item.Username.Equals(userName));
 
                 MessageBox.Show(test.ToString());
             }
