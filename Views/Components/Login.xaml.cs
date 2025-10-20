@@ -3,7 +3,9 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,6 +39,7 @@ namespace WPFLoginJoin.Views.Components
         private void OnCheckLogin(object sender, RoutedEventArgs e)
         {
 
+
             IMongoDatabase? theDatabase = Connection.database;
 
             if (theDatabase == null)
@@ -54,6 +57,7 @@ namespace WPFLoginJoin.Views.Components
             if (!String.IsNullOrEmpty(userPass) && !String.IsNullOrEmpty(userName))
             {
                 bool test = theCollectionAsList.Any(item => item.Password.Equals(userPass) && item.Username.Equals(userName));
+                loggedStatus = true;
 
                 MessageBox.Show(test.ToString());
             }

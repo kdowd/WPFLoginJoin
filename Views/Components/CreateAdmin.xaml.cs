@@ -1,7 +1,9 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +25,29 @@ namespace WPFLoginJoin.Views.Components
     /// </summary>
     public partial class CreateAdmin : UserControl
     {
+        //public string MyProperty { get; set; } = "Yadda";
+
+        //public event PropertyChangedEventHandler? PropertyChanged;
+
+        //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
+
+
+
+
         public CreateAdmin()
         {
             InitializeComponent();
         }
+
         private void OnCreateAdmin(object sender, RoutedEventArgs e)
         {
             IMongoDatabase? theDatabase = Connection.database;
+
+            //MyProperty = "Whoa!";
+            //NotifyPropertyChanged("MyProperty");
 
             if (theDatabase == null)
             {
