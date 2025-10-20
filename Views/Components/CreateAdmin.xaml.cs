@@ -64,6 +64,7 @@ namespace WPFLoginJoin.Views.Components
             newDoc.Username = userName;
 
             theCollection.InsertOne(newDoc);
+            // OR use async methods, must add async to method qualifiers
             //var tt = await theCollection.InsertOneAsync(newDoc);
 
 
