@@ -22,6 +22,8 @@ using System.Windows.Shapes;
 using WPFLoginJoin.Database;
 using WPFLoginJoin.ViewModels;
 using BCrypt.Net;
+using System.Diagnostics;
+using MongoDB.Bson;
 
 namespace WPFLoginJoin.Views.Components
 {
@@ -31,6 +33,7 @@ namespace WPFLoginJoin.Views.Components
     public partial class Login : UserControl
     {
         public bool loggedStatus { get; set; } = false;
+        public string currentUser { get; set; } = String.Empty;
 
 
 
@@ -54,63 +57,45 @@ namespace WPFLoginJoin.Views.Components
 
             //username "admin1"
             //password "password123"
+
             IQueryable<AdminsDTO> theCollection = theDatabase.GetCollection<AdminsDTO>("admins").AsQueryable<AdminsDTO>();
             List<AdminsDTO> theCollectionAsList = theCollection.ToList<AdminsDTO>();
-            string userPass = UserPassword.Text.Trim();
+            string localUserPassword = UserPassword.Text.Trim();
 
+            bool isMatchGood = false;
+            currentUser = "";
+            loggedStatus = false;
 
+            int theCount = theCollectionAsList.Count;
 
-            if (!String.IsNullOrEmpty(userPass))
+            for (int i = 0; i < theCount; i++)
             {
-                bool UnEncryptedHash = false;
+                AdminsDTO currentDoc = theCollectionAsList[i];
 
-                bool test = theCollectionAsList.Any((item) =>
-                 {
-
-
-                     try
-                     {
-
-                         UnEncryptedHash = BCrypt.Net.BCrypt.Verify(userPass, item.Password);
-
-                     }
-                     catch (Exception)
-                     {
-                         // Catch exceptions if the hash format is unexpected.
-                         return false;
-                     }
-
-
-                     return UnEncryptedHash;
-
-                 });
-
-                //set static var
-                if (UnEncryptedHash == true)
+                try
                 {
-                    loggedStatus = true;
+
+                    isMatchGood = BCrypt.Net.BCrypt.Verify(localUserPassword, currentDoc.Password);
+
+                    if (isMatchGood)
+                    {
+
+                        currentUser = currentDoc.Username;
+                        loggedStatus = true;
+                        break;
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    loggedStatus = false;
+                    // Catch exceptions if the hash format is unexpected.
+                    Trace.WriteLine("Password Hashing error");
                 }
 
-                // yadda
-                MessageBox.Show("Logged Status = " + loggedStatus.ToString());
             }
 
-            // I could loop it instead
-            //theCollectionAsList.ForEach(a =>
-            //{
 
-            //    if (a.Password == "password123")
-            //    {
-            //        loggedStatus = true;
-            //        MessageBox.Show("PASS");
 
-            //    }
-            //});
-
+            MessageBox.Show("MATCH = " + isMatchGood.ToString() + " Username = " + currentUser);
 
         }
     }
