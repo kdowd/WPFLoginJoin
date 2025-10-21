@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using WPFLoginJoin.Database;
 using WPFLoginJoin.ViewModels;
 using BCrypt.Net;
+using MongoDB.Bson;
 
 namespace WPFLoginJoin.Views.Components
 {
@@ -68,6 +69,17 @@ namespace WPFLoginJoin.Views.Components
             newDoc.Username = userName;
 
             theCollection.InsertOne(newDoc);
+
+            // Did it update with the new user? This command is sychronous BTW
+            AdminsDTO res = new AdminsDTO();
+            res.Username = userName;
+            res.Password = hashedPassword;
+
+
+            //we can easilly check. Lets convert the collection to a List of type "AdminsDTO"
+            //List<AdminsDTO> temp = theCollection.AsQueryable<AdminsDTO>().ToList();
+            //bool result = temp.Any(x => x.Username == userName);
+            //MessageBox.Show(result.ToString());
 
         }
     }
