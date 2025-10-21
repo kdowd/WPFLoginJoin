@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,6 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFLoginJoin.Database;
 using WPFLoginJoin.ViewModels;
+using BCrypt.Net;
 
 namespace WPFLoginJoin.Views.Components
 {
@@ -28,6 +31,8 @@ namespace WPFLoginJoin.Views.Components
     public partial class Login : UserControl
     {
         public bool loggedStatus { get; set; } = false;
+
+
 
 
         public Login()
@@ -52,14 +57,46 @@ namespace WPFLoginJoin.Views.Components
             IQueryable<AdminsDTO> theCollection = theDatabase.GetCollection<AdminsDTO>("admins").AsQueryable<AdminsDTO>();
             List<AdminsDTO> theCollectionAsList = theCollection.ToList<AdminsDTO>();
             string userPass = UserPassword.Text.Trim();
-            string userName = UserName.Text.Trim();
 
-            if (!String.IsNullOrEmpty(userPass) && !String.IsNullOrEmpty(userName))
+
+
+            if (!String.IsNullOrEmpty(userPass))
             {
-                bool test = theCollectionAsList.Any(item => item.Password.Equals(userPass) && item.Username.Equals(userName));
-                loggedStatus = true;
+                bool UnEncryptedHash = false;
+
+                bool test = theCollectionAsList.Any((item) =>
+                 {
+
+
+                     try
+                     {
+
+                         UnEncryptedHash = BCrypt.Net.BCrypt.Verify(userPass, item.Password);
+
+                     }
+                     catch (Exception)
+                     {
+                         // Catch exceptions if the hash format is unexpected.
+                         return false;
+                     }
+
+
+                     return UnEncryptedHash;
+
+                 });
+
+                //set static var
+                if (UnEncryptedHash == true)
+                {
+                    loggedStatus = true;
+                }
+                else
+                {
+                    loggedStatus = false;
+                }
+
                 // yadda
-                MessageBox.Show(test.ToString());
+                MessageBox.Show("Logged Status = " + loggedStatus.ToString());
             }
 
             // I could loop it instead

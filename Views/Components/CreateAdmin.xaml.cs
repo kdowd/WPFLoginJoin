@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFLoginJoin.Database;
 using WPFLoginJoin.ViewModels;
+using BCrypt.Net;
 
 namespace WPFLoginJoin.Views.Components
 {
@@ -59,11 +61,18 @@ namespace WPFLoginJoin.Views.Components
             string userPass = UserPassword.Text.Trim();
             string userName = UserName.Text.Trim();
 
-            var newDoc = new AdminsDTO();
-            newDoc.Password = userPass;
+
+            // iterations 8 = 256,   14 = 16,000 , 31 = 2, 147,483,646  
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(userPass);
+
+
+            AdminsDTO newDoc = new AdminsDTO();
+            newDoc.Password = hashedPassword;
             newDoc.Username = userName;
 
             theCollection.InsertOne(newDoc);
+
+
             // OR use async methods, must add async to method qualifiers
             //var tt = await theCollection.InsertOneAsync(newDoc);
 
