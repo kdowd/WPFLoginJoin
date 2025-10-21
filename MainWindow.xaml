@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Components:Login x:Name="CreateAdmin" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+        <Components:CreateAdmin x:Name="CreateAdmin" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
 
 
 

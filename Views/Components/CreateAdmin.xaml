@@ -24,11 +24,11 @@
                 <StackPanel>
                     <StackPanel>
                         <Label>Username:</Label>
-                        <TextBox x:Name="UserName" Text="KingOfTheHill"></TextBox>
+                        <TextBox x:Name="UserName" Text=""></TextBox>
                     </StackPanel>
                     <StackPanel>
                         <Label>Password:</Label>
-                        <TextBox x:Name="UserPassword" Text="admin666"></TextBox>
+                        <TextBox x:Name="UserPassword" Text=""></TextBox>
                     </StackPanel>
                     <StackPanel  Orientation="Vertical" Margin="30">
                         <Button Click="OnCreateAdmin" FontFamily="Cascadia Code" FontSize="18" Content="Submit" Padding="30 20" HorizontalAlignment="Center" VerticalAlignment="Center" />
