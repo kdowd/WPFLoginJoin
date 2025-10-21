@@ -58,11 +58,11 @@ namespace WPFLoginJoin.Views.Components
             {
                 bool test = theCollectionAsList.Any(item => item.Password.Equals(userPass) && item.Username.Equals(userName));
                 loggedStatus = true;
-
+                // yadda
                 MessageBox.Show(test.ToString());
             }
 
-
+            // I could loop it instead
             //theCollectionAsList.ForEach(a =>
             //{
 
@@ -73,17 +73,6 @@ namespace WPFLoginJoin.Views.Components
 
             //    }
             //});
-
-
-
-            //var index = theCollection.Select((value, index) => new { value, index });
-
-            // int indexOfKiwi = theCollection.Select((value, index) => new { value, index })
-            //                    .Where(item => item.user == "Kiwi")
-            //                    .Select(item => item.index)
-            //                    .DefaultIfEmpty(-1) // If no match, return -1
-            //                    .FirstOrDefault();
-
 
 
         }
