@@ -98,6 +98,14 @@ namespace WPFLoginJoin.Views.Components
 
             MessageBox.Show("MATCH = " + Login.loggedStatus + " Username = " + Login.currentUser);
 
+            MainWindow? APP = Application.Current.MainWindow as MainWindow;
+
+            if (APP != null)
+            {
+                APP.IsLogged(Login.loggedStatus);
+            }
+
+
         }
     }
 }

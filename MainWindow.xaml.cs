@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFLoginJoin.Database;
 using WPFLoginJoin.Views.Components;
+using WPFLoginJoin.Windows;
 
 namespace WPFLoginJoin
 {
@@ -26,6 +27,18 @@ namespace WPFLoginJoin
             new Connection();
 
 
+
+            Window win2 = new LoginWindow();
+
+            win2.Owner = Application.Current.MainWindow;
+
+            win2.ShowDialog();
+
+        }
+
+        public void IsLogged(bool b)
+        {
+            MessageBox.Show($"Logged status is {b}");
         }
     }
 }
