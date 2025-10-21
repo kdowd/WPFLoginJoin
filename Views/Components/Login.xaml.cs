@@ -32,8 +32,8 @@ namespace WPFLoginJoin.Views.Components
     /// </summary>
     public partial class Login : UserControl
     {
-        public bool loggedStatus { get; set; } = false;
-        public string currentUser { get; set; } = String.Empty;
+        public static bool loggedStatus { get; set; } = false;
+        public static string currentUser { get; set; } = String.Empty;
 
 
 
@@ -63,8 +63,9 @@ namespace WPFLoginJoin.Views.Components
             string localUserPassword = UserPassword.Text.Trim();
 
             bool isMatchGood = false;
-            currentUser = "";
-            loggedStatus = false;
+
+            Login.currentUser = "";
+            Login.loggedStatus = false;
 
             int theCount = theCollectionAsList.Count;
 
@@ -80,8 +81,8 @@ namespace WPFLoginJoin.Views.Components
                     if (isMatchGood)
                     {
 
-                        currentUser = currentDoc.Username;
-                        loggedStatus = true;
+                        Login.currentUser = currentDoc.Username;
+                        Login.loggedStatus = true;
                         break;
                     }
                 }
@@ -95,7 +96,7 @@ namespace WPFLoginJoin.Views.Components
 
 
 
-            MessageBox.Show("MATCH = " + isMatchGood.ToString() + " Username = " + currentUser);
+            MessageBox.Show("MATCH = " + Login.loggedStatus + " Username = " + Login.currentUser);
 
         }
     }

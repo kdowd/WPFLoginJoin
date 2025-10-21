@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFLoginJoin.Database;
+using WPFLoginJoin.Views.Components;
 
 namespace WPFLoginJoin
 {
@@ -23,6 +24,8 @@ namespace WPFLoginJoin
         private void OnAppLoaded(object sender, RoutedEventArgs e)
         {
             new Connection();
+
+
         }
     }
 }
