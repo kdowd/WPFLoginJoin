@@ -48,9 +48,6 @@ namespace WPFLoginJoin.Views.Components
         {
             IMongoDatabase? theDatabase = Connection.database;
 
-            //MyProperty = "Whoa!";
-            //NotifyPropertyChanged("MyProperty");
-
             if (theDatabase == null)
             {
                 return;
@@ -71,12 +68,6 @@ namespace WPFLoginJoin.Views.Components
             newDoc.Username = userName;
 
             theCollection.InsertOne(newDoc);
-
-
-            // OR use async methods, must add async to method qualifiers
-            //var tt = await theCollection.InsertOneAsync(newDoc);
-
-
 
         }
     }

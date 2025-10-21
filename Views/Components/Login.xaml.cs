@@ -27,9 +27,7 @@ using MongoDB.Bson;
 
 namespace WPFLoginJoin.Views.Components
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
+
     public partial class Login : UserControl
     {
         public static bool loggedStatus { get; set; } = false;
@@ -47,7 +45,6 @@ namespace WPFLoginJoin.Views.Components
         private void OnCheckLogin(object sender, RoutedEventArgs e)
         {
 
-
             IMongoDatabase? theDatabase = Connection.database;
 
             if (theDatabase == null)
@@ -55,8 +52,6 @@ namespace WPFLoginJoin.Views.Components
                 return;
             }
 
-            //username "admin1"
-            //password "password123"
 
             IQueryable<AdminsDTO> theCollection = theDatabase.GetCollection<AdminsDTO>("admins").AsQueryable<AdminsDTO>();
             List<AdminsDTO> theCollectionAsList = theCollection.ToList<AdminsDTO>();
